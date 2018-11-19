@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, session
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -27,6 +27,16 @@ class Blog(db.Model):
     def __init__(self, title, body):
         self.title = title
         self.body = body
+
+class User(db.Model):                                        # set up the user data base
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(120), unique=True)
+    password = db.Column(db.String(120))
+    blogs = db.relationship('Blog', backref='owner')
+
+    def __init__(self, username, password):                  # initialize user data
+        self.username = username
+        self.password = password
 
 @app.route('/')
 def index():
@@ -66,6 +76,11 @@ def new_post():
                 blog_title=blog_title, blog_body=blog_body)
     
     return render_template('newpost.html', title='New Entry')
+
+@app.route('/logout')    # for logout routine
+def logout():
+    del session['username']
+    return redirect('/blog') 
 
 if  __name__ == "__main__":
     app.run()
