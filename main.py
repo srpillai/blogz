@@ -3,9 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:junglebook@localhost:8889/build-a-blog'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:junglebook@localhost:8889/blogz'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
+app.secret_key = "mF7%z9LWw4$zj20a"
 
 '''
 -- Main page displays multiple posts. Clicking on a post redirects you to a page showing the 
@@ -19,14 +20,20 @@ to the post’s individual entry page rather than the main home page.
 
 '''
 
-class Blog(db.Model):
+class Blog(db.Model):                                             # set up the blog data base
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))
     body = db.Column(db.Text)
+    pub_date = db.Column(db.DateTime)
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, title, body):
+    def __init__(self, title, body, owner, pub_date=None):        # initialize blog data
         self.title = title
         self.body = body
+        if pub_date is None:
+            pub_date = datetime.utcnow()
+        self.pub_date = pub_date
+        self.owner = owner
 
 class User(db.Model):                                        # set up the user data base
     id = db.Column(db.Integer, primary_key=True)
@@ -40,7 +47,8 @@ class User(db.Model):                                        # set up the user d
 
 @app.route('/')
 def index():
-    return redirect('/blog')
+    users = User.query.all()
+    return render_template('index.html', users=users, header='Blog Users')
 
 @app.route('/blog')
 def blog():
@@ -79,7 +87,7 @@ def new_post():
 
 @app.route('/logout')    # for logout routine
 def logout():
-    del session['username']
+    #del session['username']
     return redirect('/blog') 
 
 if  __name__ == "__main__":
