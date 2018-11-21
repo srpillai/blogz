@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template, session
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -8,17 +9,6 @@ app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key = "mF7%z9LWw4$zj20a"
 
-'''
--- Main page displays multiple posts. Clicking on a post redirects you to a page showing the 
-post title and body. The URL for this page contains a query parameter with the id of the blog post.
-
--- Uses the nav link to go to the /newpost page and creates a new post. Check for error handling (if either 
-body or title is empty, you should get a user error). Submitting a valid post redirects you 
-to the post’s individual entry page rather than the main home page.
-
--- Returning to the main page (/blog) should show the new post at the bottom of the list.
-
-'''
 
 class Blog(db.Model):                                             # set up the blog data base
     id = db.Column(db.Integer, primary_key=True)
@@ -34,7 +24,7 @@ class Blog(db.Model):                                             # set up the b
             pub_date = datetime.utcnow()
         self.pub_date = pub_date
         self.owner = owner
-
+        
 class User(db.Model):                                        # set up the user data base
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), unique=True)
@@ -50,7 +40,7 @@ def require_login():                                          # Allowed route li
     allowed_routes = ['login', 'signup', 'index', 'blog']             
     if request.endpoint not in allowed_routes and 'username' not in session:
         return redirect('/login')
-
+    
 @app.route('/')
 def index():
     users = User.query.all()
@@ -153,7 +143,7 @@ def signup():
 
 @app.route('/logout')    # for logout routine
 def logout():
-    del session['username']
+    #del session['username']
     return redirect('/blog') 
 
 if  __name__ == "__main__":
