@@ -1,27 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{title}}</title>
-
+    <title>Blogz</title>
+    
     <style>
         h1{
             text-align: center;
-            color: rgb(151, 60, 8)
-        }
-        h3{
-            
-            margin: 0;
-            padding: 2px;
-            padding-left: 14px;
-        }
-        p{
-            margin: 0;
-            padding: 2px;
-            padding-left: 24px;
-
+            color:blueviolet
         }
         .error{
-            color: rgb(255, 230, 0);
+            color: rgb(255, 0, 221);
         }
         nav{
             
@@ -33,37 +21,28 @@
             padding: 10px 5px;
             font-size: 1.80em;
         }
-        body{
-            
-            -webkit-animation: colorchange 60s infinite; 
-            animation: colorchange 60s infinite;
-        }
-        @-webkit-keyframes colorchange {
-            0%  {background: #33FFF3;}
-            25%  {background: #78281F;}
-            50%  {background: #117A65;}
-            75%  {background: #DC7633;}
-            100% {background: #9B59B6;}
-        }
-        @keyframes colorchange {
-            0%  {background: #33FFF3;}
-            25%  {background: #78281F;}
-            50%  {background: #117A65;}
-            75%  {background: #DC7633;}
-            100% {background: #9B59B6;}
-            
+        body {
+            background-color: rgb(245, 196, 178);
         }
     </style>
 </head>
 <body>
-
-<nav>       
-    <a href="/blog">Home</a>
-    <a href="/newpost">Add a Blog</a>
-</nav>
-
-        <p> </p>
-        
+        <nav>    
+                <a>  </a>
+                <a>  </a>   
+                <a href="/">Home</a>
+                <a>  </a>
+                <a>  </a>
+                <a>  </a>
+                <a>  </a>
+                <a href="/blog">Main Blog Page</a>
+                <a>  </a>
+                <a>  </a>
+                <a>  </a>
+                <a>  </a>
+                <a href="/newpost">Add a Blog</a>
+        </nav>
+            <p> </p>
         <nav>    
                 <a>  </a>
                 <a>  </a>   
@@ -72,9 +51,9 @@
                 <a>  </a>
                 <a href="/logout">Logout</a>
         </nav>
-    
+
     {% block content %}
     {% endblock %}
-
+    
 </body>
 </html>

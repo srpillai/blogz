@@ -43,13 +43,11 @@ def require_login():                                          # Allowed route li
     
 @app.route('/')
 def index():
-    users = Blog.query.all()
+    users = User.query.all()
     return render_template('index.html', users=users, header='Blog Users')
 
 @app.route('/blog')                          # For blog listing
 def blog():
-
-    
     posts = Blog.query.all()
     blog_id = request.args.get('id')
     user_id = request.args.get('user')
