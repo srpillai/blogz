@@ -43,11 +43,13 @@ def require_login():                                          # Allowed route li
     
 @app.route('/')
 def index():
-    users = User.query.all()
+    users = Blog.query.all()
     return render_template('index.html', users=users, header='Blog Users')
 
 @app.route('/blog')                          # For blog listing
 def blog():
+
+    
     posts = Blog.query.all()
     blog_id = request.args.get('id')
     user_id = request.args.get('user')
@@ -143,7 +145,7 @@ def signup():
 
 @app.route('/logout')    # for logout routine
 def logout():
-    #del session['username']
+    del session['username']
     return redirect('/blog') 
 
 if  __name__ == "__main__":
