@@ -6,10 +6,22 @@
     <style>
         h1{
             text-align: center;
-            color:blueviolet
+            color: rgb(151, 60, 8)
+        }
+        h3{
+            
+            margin: 0;
+            padding: 2px;
+            padding-left: 14px;
+        }
+        p{
+            margin: 0;
+            padding: 2px;
+            padding-left: 24px;
+
         }
         .error{
-            color: rgb(255, 0, 221);
+            color: rgb(255, 230, 0);
         }
         nav{
             
@@ -21,8 +33,25 @@
             padding: 10px 5px;
             font-size: 1.80em;
         }
-        body {
-            background-color: rgb(245, 196, 178);
+        body{
+            
+            -webkit-animation: colorchange 60s infinite; 
+            animation: colorchange 60s infinite;
+        }
+        @-webkit-keyframes colorchange {
+            0%  {background: #33FFF3;}
+            25%  {background: #78281F;}
+            50%  {background: #117A65;}
+            75%  {background: #DC7633;}
+            100% {background: #9B59B6;}
+        }
+        @keyframes colorchange {
+            0%  {background: #33FFF3;}
+            25%  {background: #78281F;}
+            50%  {background: #117A65;}
+            75%  {background: #DC7633;}
+            100% {background: #9B59B6;}
+            
         }
     </style>
 </head>
